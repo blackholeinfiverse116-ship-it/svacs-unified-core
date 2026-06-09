@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # README.md
 
 # SVACS Unified Core
@@ -709,3 +710,6 @@ LINEAGE STATUS: VERIFIED
 BUCKET STATUS: VERIFIED
 DASHBOARD STATUS: ACTIVE
 ```
+=======
+
+>>>>>>> master
