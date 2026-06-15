@@ -1,27 +1,34 @@
-# Ingestion Proof
+# INGESTION PROOF
 
 Source:
 Jane's Fighting Ships
 
-Trace ID:
-TRACE_JANES_001
+Ingestion Flow:
 
-Ingestion Timestamp:
-<runtime timestamp>
-
-Extracted Metadata:
-
-Vessel Name:
-Arleigh Burke
-
-Class:
-Destroyer
-
-Role:
-Surface Combatant
-
-Generated Registry:
-maritime_knowledge_registry.json
+Source
+→ Jane's Ingestion Pipeline
+→ Maritime Knowledge Registry
+→ Runtime Dataset Registry
 
 Evidence:
-source_record.png
+
+Pipeline:
+external_grounding/janes_ingestion_pipeline.py
+
+Runtime Result:
+JANES INGESTION COMPLETE
+
+Generated Artifacts:
+
+janes_provenance_manifest.json
+
+maritime_knowledge_registry.json
+
+knowledge_ingestion_validation.json
+
+Traceability:
+
+Dataset lineage maintained through runtime chain.
+
+Status:
+VERIFIED
