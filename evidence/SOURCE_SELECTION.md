@@ -1,19 +1,14 @@
-# Source Selection
-
 Source:
 Jane's Fighting Ships
 
 Edition:
 1999-2000
 
-Reference:
-https://archive.org/details/isbn_0710619057
-
-Selected Vessel:
-Arleigh Burke Class Destroyer
+Selected Record:
+Example Vessel Record
 
 Reason:
-Used as maritime grounding source for runtime intelligence validation.
+Maritime grounding validation
 
 Trace ID:
-TRACE_JANES_001
+TRACE_001
