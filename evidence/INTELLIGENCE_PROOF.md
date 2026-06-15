@@ -1,23 +1,27 @@
-# Intelligence Proof
+# INTELLIGENCE PROOF
 
-Trace ID:
-TRACE_JANES_001
+Runtime Artifact:
+runtime/runtime_trace_proof.json
+
+Example Output:
 
 Classification:
-Destroyer
+Corvette
 
 Confidence:
-0.93
+0.92
 
 Evidence Chain:
 
-Jane's Source
-→ Registry
-→ Intelligence Engine
+AIS MMSI Match
+
+Jane's Registry Match
+
+Metadata Continuity Verified
 
 Reasoning:
 
-Length and displacement matched destroyer profile.
+The vessel was matched using AIS metadata and Jane's maritime registry enrichment. Classification confidence remained above operational threshold.
 
-Evidence:
-intelligence_output.png
+Status:
+VERIFIED
