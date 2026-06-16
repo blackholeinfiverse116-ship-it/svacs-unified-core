@@ -4,7 +4,7 @@ Artifact Storage Result:
 
 Artifact Stored Successfully
 
-Storage Type:
+Storage Type: 
 Append Only
 
 Artifact ID:
