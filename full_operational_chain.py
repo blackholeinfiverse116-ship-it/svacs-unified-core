@@ -24,10 +24,9 @@ Path("storage/logs").mkdir(parents=True, exist_ok=True)
 # BUCKET ENDPOINTS
 # =========================================================
 
-LATEST_HASH_URL = "https://bhiv-bucket.onrender.com/bucket/latest-hash"
+LATEST_HASH_URL = "https://bhiv-bucket-i1l6.onrender.com/bucket/latest-hash"
 
-BUCKET_UPLOAD_URL = "https://bhiv-bucket.onrender.com/bucket/artifact"
-
+BUCKET_UPLOAD_URL = "https://bhiv-bucket-i1l6.onrender.com/bucket/artifact"
 # =========================================================
 # GLOBAL TRACE
 # =========================================================
@@ -197,32 +196,29 @@ def bucket_stage():
 
     artifact = {
 
-        "artifact_id": str(uuid.uuid4()),
+    "artifact_id": str(uuid.uuid4()),
 
-        "timestamp_utc": datetime.now(UTC).isoformat(),
+    "trace_id": trace["trace_id"],
 
-        "schema_version": "1.0.0",
+    "timestamp_utc": datetime.now(UTC).isoformat(),
 
-        "source_module_id": "ankita_runtime",
+    "schema_version": "1.0.0",
 
-        "artifact_type": "runtime_chain",
+    "source_module_id": "ankita_runtime",
 
-        "payload": {
+    "artifact_type": "runtime_chain",
 
-            "trace_id": trace["trace_id"],
+    "payload": {
 
-            "pipeline": "SVACS",
+        "pipeline": "SVACS",
 
-            "stage": "bucket",
+        "stage": "bucket",
 
-            "deterministic": True,
+        "deterministic": True,
 
-            "replay_safe": True,
-
-            "execution_id": trace["execution_id"]
-        }
+        "replay_safe": True
     }
-
+}
     # =====================================================
     # ADD parent_hash ONLY IF EXISTS
     # =====================================================
