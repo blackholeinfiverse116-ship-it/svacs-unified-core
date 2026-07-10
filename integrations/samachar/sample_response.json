@@ -1,0 +1,75 @@
+
+{
+  "intelligence": {
+    "validated_entities": {
+      "names": ["string"],
+      "organizations": ["string"],
+      "locations": ["string"],
+      "dates": ["string"]
+    },
+
+    "classification": {
+      "primary_category": "string",
+      "secondary_category": "string",
+      "confidence_score": 0.95,
+      "matched_keywords": ["string"],
+      "evidence_used": [
+        {
+          "keyword": "string",
+          "reason": "string"
+        }
+      ],
+      "rejected_categories": {
+        "<category>": "reason"
+      },
+      "classification_explanation": "string"
+    },
+
+    "evidence": {
+      "<entity_name>": [
+        {
+          "paragraph": 1,
+          "sentence": "string",
+          "entity": "string",
+          "classification_keywords": ["string"],
+          "reason": "string",
+          "confidence": 1.0
+        }
+      ]
+    },
+
+    "confidence": {
+      "score": 97,
+      "summary": "54 entities, 112 evidence matches, classification confidence 0.95"
+    },
+
+    "processing_trace": {
+      "status": "SUCCESS",
+      "steps": [
+        "Scraping",
+        "Entity Extraction",
+        "Validation",
+        "Classification",
+        "Evidence",
+        "Confidence"
+      ],
+      "processing_time": {
+        "scraping": 0.59,
+        "entity_extraction": 0.27,
+        "validation": 0.00,
+        "classification": 0.00,
+        "evidence": 0.01,
+        "confidence": 0.00,
+        "total": 0.87
+      }
+    },
+
+    "rejected_entities": [
+      {
+        "entity": "string",
+        "entity_type": "string",
+        "reason": "string"
+      }
+    ]
+  }
+}
