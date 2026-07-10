@@ -4,6 +4,8 @@ import requests
 from datetime import datetime, UTC
 from pathlib import Path
 
+from integrations.samachar.samachar_client import fetch_intelligence
+from integrations.samachar.intelligence_mapper import convert_to_svacs
 # =========================================================
 # STORAGE PATHS
 # =========================================================
@@ -86,6 +88,7 @@ def signal_stage():
 
     return signal_data
 
+
 # =========================================================
 # GEO STAGE
 # =========================================================
@@ -111,35 +114,64 @@ def geo_stage():
 
 def perception_stage():
 
-    perception_data = {
+    news_url = "https://indianexpress.com/article/political-pulse/maharashtra-bjp-devendra-fadnavis-mahayuti-alliance-no-new-allies-eknath-shinde-operation-tiger-10777555/?ref=politics_pg"
 
-        "vessel_detected": True,
+    intelligence = fetch_intelligence(news_url)
 
-        "vessel_class": "Cargo",
+    perception_data = convert_to_svacs(intelligence)
 
-        "threat_detected": False
-    }
+    print("\n========== SAMACHAR OUTPUT ==========\n")
+    print(json.dumps(perception_data, indent=4))
 
-    log_stage("PERCEPTION", "COMPLETED", perception_data)
+    log_stage(
+        "PERCEPTION",
+        "COMPLETED",
+        perception_data
+    )
 
     return perception_data
-
 # =========================================================
 # INTELLIGENCE STAGE
 # =========================================================
 
-def intelligence_stage():
+def intelligence_stage(perception_data):
+
+    confidence = perception_data["confidence"]
+
+    if confidence > 0.90:
+
+        recommendation = "TRACK"
+
+    elif confidence > 0.70:
+
+        recommendation = "MONITOR"
+
+    else:
+
+        recommendation = "VERIFY"
 
     intelligence_data = {
 
-        "risk_score": 0.14,
+        "classification":
+            perception_data["classification"],
 
-        "anomaly_detected": False,
+        "confidence":
+            confidence,
 
-        "recommendation": "MONITOR"
+        "reasoning":
+            perception_data["reasoning"],
+
+        "recommendation":
+            recommendation
     }
-
-    log_stage("INTELLIGENCE", "COMPLETED", intelligence_data)
+    print("\n========== SVACS INTELLIGENCE ==========\n")
+    print(json.dumps(intelligence_data, indent=4))
+    
+    log_stage(
+        "INTELLIGENCE",
+        "COMPLETED",
+        intelligence_data
+    )
 
     return intelligence_data
 
@@ -147,16 +179,29 @@ def intelligence_stage():
 # STATE STAGE
 # =========================================================
 
-def state_stage():
+def state_stage(intelligence_data):
+
+    if intelligence_data["recommendation"] == "TRACK":
+        state = "TRACKING"
+
+    elif intelligence_data["recommendation"] == "MONITOR":
+        state = "MONITORING"
+
+    else:
+        state = "WAITING"
 
     state_data = {
 
-        "state_status": "ACTIVE",
+        "state_status": state,
 
         "deterministic_state": True
     }
 
-    log_stage("STATE", "COMPLETED", state_data)
+    log_stage(
+        "STATE",
+        "COMPLETED",
+        state_data
+    )
 
     return state_data
 
@@ -331,16 +376,16 @@ def main():
 
     print("\nFULL OPERATIONAL CHAIN STARTED\n")
 
-    signal_stage()
+    signal = signal_stage()
 
-    geo_stage()
+    geo = geo_stage()
 
-    perception_stage()
+    perception = perception_stage()
 
-    intelligence_stage()
+    intelligence = intelligence_stage(perception)
 
-    state_stage()
-
+    state = state_stage(intelligence)
+    
     bucket_stage()
 
     replay_stage()
